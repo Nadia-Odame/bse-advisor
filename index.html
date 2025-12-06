@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BSE Specialisation Advisor</title>
+  <meta name="description" content="Interactive quiz to help new BSE students pick a specialisation: Low-Level Programming, AR/VR, Full-Stack, Machine Learning." />
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Header / Navigation -->
+  <header class="site-header">
+    <div class="brand">
+      <div class="logo">BSE</div>
+      <div class="brand-text">
+        <div class="title">BSE Specialisation Advisor</div>
+        <div class="subtitle">8-question interactive quiz — find the best fit for your learning journey</div>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <button class="nav-btn active" data-target="landing">Home</button>
+      <button class="nav-btn" data-target="quiz">Quiz</button>
+      <button class="nav-btn" data-target="result">Result</button>
+      <button class="nav-btn" data-target="contact">Contact</button>
+    </nav>
+  </header>
+
+  <main class="main">
+    <!-- Landing -->
+    <section id="landing" class="card panel active">
+      <div class="landing-grid">
+        <div>
+          <h1>Welcome, future BSE changemaker</h1>
+          <p class="lead">This interactive advisor will recommend one of four BSE specialisations based on your answers.</p>
+
+          <ol class="howto">
+            <li>Answer 8 short questions (mix of radios, checkboxes, slider, select & text).</li>
+            <li>Scoring maps fairly across: Low-Level Programming, AR/VR, Full-Stack, Machine Learning.</li>
+            <li>Receive a clear recommendation, explanations, next steps & starter plans.</li>
+          </ol>
+
+          <div class="cta-row">
+            <button id="startQuiz" class="btn primary">Start Quiz</button>
+            <button id="demoBtn" class="btn">Preview Example Result</button>
+          </div>
+        </div>
+
+        <aside class="card summary-card">
+          <h3>Specialisations</h3>
+          <ul>
+            <li>Low-Level Programming</li>
+            <li>AR / VR</li>
+            <li>Full-Stack Web Development</li>
+            <li>Machine Learning</li>
+          </ul>
+          <p class="muted">No accounts, client-side only. Save your GitHub link on the Contact page before submission.</p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Quiz -->
+    <section id="quiz" class="card panel" aria-hidden="true">
+      <form id="quizForm" class="quiz-form">
+        <header class="form-header">
+          <h2>Quiz — Tell us about your preferences</h2>
+          <div class="progress">
+            <div id="progressBar" class="progress-bar">
+              <div id="progressFill" class="progress-fill">
+                <span id="progressText">0 / 8</span>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- Q1: Preferred task (radio) -->
+        <div class="question" data-q="1">
+          <label class="qtitle">1. Which type of task excites you most?</label>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="q1" required data-score="llp:2,ar:0,fs:0,ml:0"> Optimising software for performance on devices</label>
+            <label class="choice"><input type="radio" name="q1" data-score="llp:0,ar:2,fs:0,ml:0"> Creating immersive 3D experiences or simulations</label>
+            <label class="choice"><input type="radio" name="q1" data-score="llp:0,ar:0,fs:2,ml:0"> Building user-facing web apps and UX</label>
+            <label class="choice"><input type="radio" name="q1" data-score="llp:0,ar:0,fs:0,ml:2"> Researching from data and training models</label>
+          </div>
+        </div>
+
+        <!-- Q2: Problem types (checkbox up to 2) -->
+        <div class="question" data-q="2">
+          <label class="qtitle">2. Which problems would you enjoy solving? (max 2)</label>
+          <div class="choices">
+            <label class="choice"><input type="checkbox" name="q2" data-score="llp:1,ar:0,fs:0,ml:0"> Low-level systems & resource-constrained devices</label>
+            <label class="choice"><input type="checkbox" name="q2" data-score="llp:0,ar:1,fs:0,ml:0"> Spatial interaction / 3D interface design</label>
+            <label class="choice"><input type="checkbox" name="q2" data-score="llp:0,ar:0,fs:1,ml:0"> Product features and user flows</label>
+            <label class="choice"><input type="checkbox" name="q2" data-score="llp:0,ar:0,fs:0,ml:1"> Data modelling and prediction tasks</label>
+          </div>
+          <div class="hint muted" id="q2hint">Select up to 2 options</div>
+        </div>
+
+        <!-- Q3: Math comfort (range slider) -->
+        <div class="question" data-q="3">
+          <label for="q3" class="qtitle">3. Rate your comfort with math/statistics (0 = low, 10 = very confident): <span id="mathVal">5</span>/10</label>
+          <input id="q3" type="range" name="q3" min="0" max="10" value="5" data-score-high="ml:2" data-score-low="llp:1">
+        </div>
+
+        <!-- Q4: Visual / spatial preference (radio) -->
+        <div class="question" data-q="4">
+          <label class="qtitle">4. Do you enjoy 3D/visual design and animations?</label>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="q4" required data-score="llp:0,ar:2,fs:1,ml:0"> Yes — I like spatial/visual work</label>
+            <label class="choice"><input type="radio" name="q4" data-score="llp:1,ar:0,fs:1,ml:0"> I prefer abstract logic or data</label>
+          </div>
+        </div>
+
+        <!-- Q5: Tool preference (select) -->
+        <div class="question" data-q="5">
+          <label for="q5" class="qtitle">5. Which tool would you rather learn first?</label>
+          <select id="q5" name="q5" required>
+            <option value="">Choose...</option>
+            <option value="llp" data-score="llp:2,ar:0,fs:0,ml:0">C / Rust</option>
+            <option value="ar" data-score="llp:0,ar:2,fs:0,ml:0">Unity / Unreal</option>
+            <option value="fs" data-score="llp:0,ar:0,fs:2,ml:0">React + Node</option>
+            <option value="ml" data-score="llp:0,ar:0,fs:0,ml:2">Python + TensorFlow/PyTorch</option>
+          </select>
+        </div>
+
+        <!-- Q6: Team role (radio) -->
+        <div class="question" data-q="6">
+          <label class="qtitle">6. In group projects which role do you prefer?</label>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="q6" required data-score="llp:2,ar:0,fs:0,ml:0"> Systems, performance or hardware integration</label>
+            <label class="choice"><input type="radio" name="q6" data-score="llp:0,ar:2,fs:0,ml:0"> Prototype visuals / interaction designer</label>
+            <label class="choice"><input type="radio" name="q6" data-score="llp:0,ar:0,fs:2,ml:0"> Product building (frontend & backend)</label>
+            <label class="choice"><input type="radio" name="q6" data-score="llp:0,ar:0,fs:0,ml:2"> Data analysis and model building</label>
+          </div>
+        </div>
+
+        <!-- Q7: Time horizon preference (radio) -->
+        <div class="question" data-q="7">
+          <label class="qtitle">7. Do you prefer short feedback cycles or long research cycles?</label>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="q7" required data-score="llp:0,ar:1,fs:2,ml:0"> Short loops (ship, iterate fast)</label>
+            <label class="choice"><input type="radio" name="q7" data-score="llp:1,ar:0,fs:0,ml:2"> Long cycles (experiments, tuning)</label>
+          </div>
+        </div>
+
+        <!-- Q8: Free text favourite keyword (validated) -->
+        <div class="question" data-q="8">
+          <label for="q8" class="qtitle">8. Enter a favourite one-word keyword or short snippet (e.g. "pointer", "shader", "react", "matrix")</label>
+          <input id="q8" type="text" name="q8" placeholder='e.g. "pointer" or "matrix"' pattern=".{1,60}" required>
+          <div class="hint muted">Keyword influences scoring (client-side pattern matching).</div>
+        </div>
+
+        <!-- Reflection (bonus, not required for scoring) -->
+        <div class="question" data-q="9">
+          <label for="q9" class="qtitle">Optional — In one sentence, what would you love to build in BSE?</label>
+          <textarea id="q9" name="q9" rows="2" maxlength="220" placeholder="I want to build..."></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn primary">See Recommendation</button>
+          <button type="button" id="resetBtn" class="btn">Reset</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Result -->
+    <section id="result" class="card panel" aria-hidden="true">
+      <h2>Your Recommended Specialisation</h2>
+
+      <div class="result-grid">
+        <div class="result-left">
+          <div id="resultBadge" class="badge">—</div>
+          <h3 id="resultName"></h3>
+          <p id="resultWhy" class="muted"></p>
+
+          <div class="box">
+            <h4>Why this fits</h4>
+            <p id="whyText"></p>
+          </div>
+
+          <div class="box">
+            <h4>Suggested next steps</h4>
+            <ul id="nextSteps"></ul>
+          </div>
+
+          <div class="box">
+            <h4>Mini projects (start small)</h4>
+            <ol id="miniProjects"></ol>
+          </div>
+
+          <div class="box">
+            <h4>Starter resources</h4>
+            <ul id="resources"></ul>
+          </div>
+        </div>
+
+        <aside class="result-right card aside">
+          <div class="confidence">
+            <h4>Confidence</h4>
+            <div class="meter"><div id="confMeter"></div></div>
+            <div id="scoreBreakdown" class="muted small"></div>
+          </div>
+
+          <div class="plan">
+            <h4>Generate a 3-month plan</h4>
+            <button id="generatePlan" class="btn">Make 3-Month Plan</button>
+            <pre id="planText" class="plan-text"></pre>
+            <a id="downloadPlan" class="btn" style="display:none">Download Plan</a>
+          </div>
+
+          <div class="share">
+            <button id="copyBtn" class="btn">Copy Summary</button>
+            <a id="githubLink" class="btn" href="#" target="_blank">GitHub Info</a>
+          </div>
+        </aside>
+      </div>
+
+      <div class="result-actions">
+        <button id="retake" class="btn">Retake Quiz</button>
+        <button id="toContact" class="btn">Add Contact & Submit</button>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="card panel" aria-hidden="true">
+      <h2>Contact / Submission</h2>
+      <form id="contactForm" class="contact-form">
+        <label for="contactName">Your name</label>
+        <input id="contactName" type="text" name="name" placeholder="Your name" required>
+        
+        <label for="contactEmail">Your email</label>
+        <input id="contactEmail" type="email" name="email" placeholder="Your email" required>
+        
+        <label for="contactGithub">GitHub repo or Pages URL</label>
+        <input id="contactGithub" type="url" name="github" placeholder="https://github.com/username/repo" required>
+        
+        <label for="contactNotes">Notes for reviewer</label>
+        <textarea id="contactNotes" name="notes" rows="3" placeholder="Notes for reviewer (e.g. tutorials used, credits)"></textarea>
+        
+        <div class="form-actions">
+          <button type="submit" class="btn primary">Save Contact</button>
+          <button type="button" id="contactReset" class="btn">Clear</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Built for Front-End Web Development summative; client-side only. Good luck! 🌟</p>
+    <p class="small">© 2025 — All rights reserved</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
