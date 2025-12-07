@@ -378,7 +378,7 @@ contactForm.addEventListener('submit', (e) => {
   
   try {
     new URL(data.github);
-    alert(`Contact saved locally!\n\nName: ${data.name}\nEmail: ${data.email}\nGitHub: ${data.github}\n\nRemember to submit your project files with this information.`);
+    alert(`Contact saved locally!\n\nName: ${data.name}\nEmail: ${data.email}\nGitHub: ${data.github}\n\nThanks for the message.`);
   } catch(err) {
     alert('Please enter a valid URL for your GitHub repo or Pages site (must start with https://).');
   }
